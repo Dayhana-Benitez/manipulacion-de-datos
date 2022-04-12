@@ -17,3 +17,24 @@ img{
 figure{
   width: 20%;
 }
+.btn-container {
+  display: flex;
+  width: 50%;
+  justify-content: space-evenly;
+  margin-top: 2rem;
+}
+.btn {
+  border-radius: 5px;
+  padding: 1rem 1.5rem;
+  box-shadow: 0 0 10px rgba(0,0,0,0.3);
+}
+.btn a {
+  text-decoration: none;
+  color: black;
+}
+.btn-edit {
+  background-color: lightgreen;
+}
+.btn-delete {
+  background-color: tomato;
+}

@@ -42,22 +42,79 @@ const moviesController = {
             });
     }, //Aqui debemos modificar y completar lo necesario para trabajar con el CRUD
     add: function (req, res) {
-        // TODO   
+        res.render('moviesAdd')   
     },
     create: function (req, res) {
-        // TODO
+        const {title, rating, release_date, length, awards} = req.body
+
+        db.Movie.create({
+            title,
+            rating,
+            release_date,
+            length,
+            awards
+        })
+        .then((movie) => {
+            if(movie){
+                res.redirect('/movies')
+            }
+        })
+        .catch((error) => {
+            res.send(error)
+        })
     },
     edit: function(req, res) {
-        // TODO
+        db.Movie.findByPk(req.params.id)
+        .then((movie) => {
+            res.render('moviesEdit', {
+                movie
+            })
+        })
+        .catch((error) => {
+            res.send(error)
+        })
     },
     update: function (req,res) {
-        // TODO
+        const {title, rating, release_date, length, awards} = req.body
+
+        db.Movie.update({
+            title,
+            rating,
+            release_date,
+            length,
+            awards
+        }, {
+            where: {
+                id: req.params.id
+            }
+        })
+        .then((result) => {
+            if(result) {
+                res.redirect('/movies')
+            }
+        })
+        .catch((error) => {
+            res.send(error)
+        })
     },
     delete: function (req, res) {
-        // TODO
+        db.Movie.findByPk(req.params.id)
+        .then((movie) =>{
+            res.render('moviesDelete', {
+                movie
+            })
+        })
     },
     destroy: function (req, res) {
-        // TODO
+        db.Movie.destroy({
+            where : {
+                id: req.params.id,
+            }
+        })
+        .then((result) => { 
+            console.log(result)
+            res.redirect('/movies')
+        })
     }
 
 }
